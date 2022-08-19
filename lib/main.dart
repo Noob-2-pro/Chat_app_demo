@@ -1,11 +1,14 @@
+import 'package:chat/providers/message_provider.dart';
 import 'package:chat/ui/screens/home/home.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'constant.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
-const primaryColor = Color(0xFF0055FF);
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -25,20 +28,26 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: MaterialColor(primaryColor.value, const <int, Color>{
-          50: Color(0xffe9ebff),
-          100: Color(0xffc7cdff),
-          200: Color(0xffa0aeff),
-          300: Color(0xff738dff),
-          400: Color(0xff4b71ff),
-          500: primaryColor,
-          600: Color(0xff004cf3),
-          700: Color(0xff0040e6),
-          800: Color(0xff0034db),
-          900: Color(0xff001acb),
-        }),
+        primarySwatch: MaterialColor(
+          primaryColor.value,
+          const <int, Color>{
+            50: Color(0xffe9ebff),
+            100: Color(0xffc7cdff),
+            200: Color(0xffa0aeff),
+            300: Color(0xff738dff),
+            400: Color(0xff4b71ff),
+            500: primaryColor,
+            600: Color(0xff004cf3),
+            700: Color(0xff0040e6),
+            800: Color(0xff0034db),
+            900: Color(0xff001acb),
+          },
+        ),
       ),
-      home: const Home(),
+      home: ChangeNotifierProvider(
+        create: (context) => MessageProvider(),
+        child: Home(),
+      ),
     );
   }
 }
